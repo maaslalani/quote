@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Quote</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="quote-container">
+        <div class="quote-mask">
+          <div class="quote">
+            <div class="text" contenteditable="true">
+              Be yourself; everyone else is already taken.
+            </div>
+            <div class="author" contenteditable="true">— Oscar Wilde</div>
+          </div>
+        </div>
+      </div>
+      <div class="editor-container">
+        <div class="editor">
+          <div class="editor-section">
+            <label>Theme</label>
+            <div class="color-container theme">
+              <a
+                class="color"
+                data-foreground="#000000"
+                data-background="#edede9"
+              >
+              </a>
+              <a
+                class="color"
+                data-foreground="#000000"
+                data-background="#d6ccc2"
+              ></a>
+              <a
+                class="color"
+                data-foreground="#C9ADA7"
+                data-background="#f5ebe0"
+              ></a>
+              <a
+                class="color"
+                data-foreground="#F2E9E4"
+                data-background="#e3d5ca"
+              ></a>
+              <a
+                class="color"
+                data-foreground="#ffffff"
+                data-background="#d5bdaf"
+              ></a>
+            </div>
+          </div>
+          <div class="editor-section">
+            <label>Padding</label>
+            <div class="padding-container">
+              <a data-padding="16px" class="padding">16</a>
+              <a data-padding="32px" class="padding">32</a>
+              <a data-padding="64px" class="padding">64</a>
+              <a data-padding="128px" class="padding">128</a>
+            </div>
+          </div>
+          <div class="editor-section">
+            <label>Size</label>
+            <div class="size-container">
+              <a data-size="250px" class="size">250</a>
+              <a data-size="400px" class="size">400</a>
+              <a data-size="600px" class="size">600</a>
+            </div>
+          </div>
+          <div class="editor-section">
+            <label>Font</label>
+            <div>
+              <div>
+                Quote
+                <select></select>
+              </div>
+              <div>
+                Author
+                <select></select>
+              </div>
+            </div>
+          </div>
+          <div class="editor-section">
+            <label>Export</label>
+            <div>
+              <button id="export">Export as Image</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  </body>
+</html>
