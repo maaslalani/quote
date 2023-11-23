@@ -47,13 +47,13 @@ body {
   height: 100%;
   padding: 0 64px;
 
+  font-family: "Times New Roman", serif;
   background-color: #f5ebe0;
 
   transition: all 0.25s ease-in-out;
 }
 
 .text {
-  font-family: "Times New Roman", serif;
   font-size: 1.5em;
 
   outline: none;
@@ -62,7 +62,6 @@ body {
 }
 
 .author {
-  font-family: "Times New Roman", serif;
   font-size: 1em;
 
   outline: none;
@@ -72,6 +71,7 @@ body {
   flex: 1;
 
   height: calc(100% - 2em);
+  min-width: 250px;
 
   margin: 1em;
   padding: 1em;
@@ -89,12 +89,12 @@ body {
   padding: 0.75em 0;
 }
 
-.color-container {
+.theme-container {
   display: flex;
   flex-wrap: wrap;
 }
 
-.color {
+.theme {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,17 +114,18 @@ body {
   transition: transform 0.1s ease;
 }
 
-.color:before {
+.theme:before {
   content: "Q";
 }
 
-.color:hover {
+.theme:hover {
   transform: translateY(-1px);
   transform: scale(1.1);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.color,
+.font-container,
+.theme-container,
 .padding-container,
 .size-container {
   display: flex;
@@ -132,8 +133,8 @@ body {
 }
 
 .padding,
-.size {
-  width: 2em;
+.size,
+.font {
   padding: 0.25em;
   margin: 0.5em 0.75em 0em 0em;
 
@@ -146,7 +147,8 @@ body {
 }
 
 .padding:hover,
-.size:hover {
+.size:hover,
+.font:hover {
   color: rgba(0, 0, 0, 0.5);
 }
 

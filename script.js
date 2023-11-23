@@ -3,9 +3,9 @@ document.getElementById('export').addEventListener('click', exportImage);
 const quote = document.querySelector('.quote');
 const quoteMask = document.querySelector('.quote-mask');
 
-document.querySelectorAll('.theme > .color').forEach(a => {
-  const foreground = a.getAttribute('data-foreground');
-  const background = a.getAttribute('data-background');
+document.querySelectorAll('.theme').forEach(a => {
+  const foreground = a.getAttribute('data-fg');
+  const background = a.getAttribute('data-bg');
   a.style.backgroundColor = background;
   a.style.color = foreground;
   a.addEventListener('click', () => {
@@ -27,6 +27,13 @@ document.querySelectorAll('.size').forEach(a => {
   a.addEventListener('click', () => {
     quoteMask.style.height = size;
     quoteMask.style.width= size;
+  });
+})
+
+document.querySelectorAll('.font').forEach(a => {
+  const font = a.getAttribute('data-font');
+  a.addEventListener('click', () => {
+    quote.style.fontFamily = font;
   });
 })
 
