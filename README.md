@@ -1,0 +1,2 @@
+# quote
+Aesthetic quote generator
