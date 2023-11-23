@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quote</title>
+    <script type="text/javascript" src="main.js"></script>
+    <script
+      type="text/javascript"
+      src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"
+    ></script>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="elm"></div>
+  </body>
+
+  <script type="text/javascript">
+    var app = Elm.Main.init({
+      node: document.querySelector("#elm"),
+    });
+
+    app.ports.exportImage.subscribe((message) => {
+      html2canvas(document.querySelector("#quote")).then((canvas) => {
+        let link = document.createElement("a");
+        link.href = canvas.toDataURL();
+        link.download = "quote.png";
+        link.click();
+      });
+    });
+  </script>
+</html>

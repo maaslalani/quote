@@ -1,2 +1,3 @@
-# quote
-Aesthetic quote generator
+# "Quote"
+
+Generate aesthetic quotes from the web.
