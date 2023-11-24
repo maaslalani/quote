@@ -6,8 +6,7 @@ body {
   min-height: 100vh;
   height: 100vh;
 
-  background-color: #d6ccc2;
-
+  background-color: #fafafa;
   margin: 0;
 }
 
@@ -23,12 +22,14 @@ body {
   display: flex;
   justify-content: center;
 
-  flex: 3;
+  flex: 4;
 }
 
 .quote-mask {
-  border: 1px solid #d1c8bf;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1em;
+
+  background-color: #ffffff;
 
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -47,8 +48,9 @@ body {
   height: 100%;
   padding: 0 64px;
 
+  min-width: 100px;
+
   font-family: "Times New Roman", serif;
-  background-color: #f5ebe0;
 
   transition: all 0.25s ease-in-out;
 }
@@ -74,11 +76,11 @@ body {
   min-width: 250px;
 
   margin: 1em;
-  padding: 1em;
+  padding: 2em;
 
-  background-color: #d5bdaf;
+  background-color: #ffffff;
 
-  border: 1px solid #b19e93;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.5em;
 
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -105,7 +107,7 @@ body {
 
   background-color: rgba(0, 0, 0, 0.1);
 
-  border: 1px solid #b19e93;
+  border: 1px solid rgba(0, 0, 0, 0.25);
   border-radius: 16px;
 
   margin: 0.5em 0.75em 0em 0em;
@@ -135,21 +137,28 @@ body {
 .padding,
 .size,
 .font {
-  padding: 0.25em;
-  margin: 0.5em 0.75em 0em 0em;
+  padding: 0.5em 0.75em;
+  margin: 0.75em 0.75em 0em 0em;
 
   font-size: 0.75em;
   text-align: center;
 
   border-radius: 0.5em;
+  color: rgba(0, 0, 0, 0.5);
 
   transition: background-color 0.1s ease-in-out;
 }
 
 .padding:hover,
 .size:hover,
-.font:hover {
-  color: rgba(0, 0, 0, 0.5);
+.font:hover,
+.active {
+  color: rgba(0, 0, 0, 1);
+  outline: rgba(0, 0, 0, 1);
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 label {
@@ -160,16 +169,16 @@ label {
 
 #export {
   cursor: pointer;
+  font-family: monospace;
+  font-size: 1.15em;
 
-  font-size: 1em;
-  font-weight: medium;
-
-  padding: 15px 30px;
   margin: 1em auto;
+  padding: 15px 20px;
 
-  background-color: #f5ebe0;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 1);
 
-  border: 1px solid #b19e93;
+  border: none;
   border-radius: 8px;
 
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -184,5 +193,5 @@ label {
 }
 
 a:hover {
-  cursor: pointer;
+  cursor: default;
 }

@@ -19,6 +19,8 @@ document.querySelectorAll('.padding').forEach(a => {
   a.addEventListener('click', () => {
     quote.style.paddingLeft = padding;
     quote.style.paddingRight = padding;
+    [...a.parentElement.children].forEach(sibling => sibling.classList.remove('active'));
+    a.classList.add('active');
   });
 })
 
@@ -27,6 +29,8 @@ document.querySelectorAll('.size').forEach(a => {
   a.addEventListener('click', () => {
     quoteMask.style.height = size;
     quoteMask.style.width= size;
+    [...a.parentElement.children].forEach(sibling => sibling.classList.remove('active'));
+    a.classList.add('active');
   });
 })
 
@@ -34,6 +38,8 @@ document.querySelectorAll('.font').forEach(a => {
   const font = a.getAttribute('data-font');
   a.addEventListener('click', () => {
     quote.style.fontFamily = font;
+    [...a.parentElement.children].forEach(sibling => sibling.classList.remove('active'));
+    a.classList.add('active');
   });
 })
 
