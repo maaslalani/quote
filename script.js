@@ -11,14 +11,6 @@ document.querySelectorAll('.theme').forEach(a => {
   a.addEventListener('click', () => {
     quote.style.backgroundColor = background;
     quote.style.color = foreground;
-  });
-})
-
-document.querySelectorAll('.padding').forEach(a => {
-  const padding = a.getAttribute('data-padding');
-  a.addEventListener('click', () => {
-    quote.style.paddingLeft = padding;
-    quote.style.paddingRight = padding;
     [...a.parentElement.children].forEach(sibling => sibling.classList.remove('active'));
     a.classList.add('active');
   });
@@ -28,7 +20,7 @@ document.querySelectorAll('.size').forEach(a => {
   const size = a.getAttribute('data-size');
   a.addEventListener('click', () => {
     quoteMask.style.height = size;
-    quoteMask.style.width= size;
+    quoteMask.style.width = size;
     [...a.parentElement.children].forEach(sibling => sibling.classList.remove('active'));
     a.classList.add('active');
   });

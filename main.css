@@ -46,37 +46,39 @@ body {
   justify-content: center;
 
   height: 100%;
-  padding: 0 64px;
+  padding: 0 20%;
 
   min-width: 100px;
 
   font-family: "Times New Roman", serif;
 
-  transition: all 0.25s ease-in-out;
+  transition:
+    background-color 0.25s ease-out,
+    foreground-color 0.5s ease-in-out,
+    padding 0.25s ease-out,
+    width 0.25s ease-out;
 }
 
 .text {
-  font-size: 1.5em;
-
+  font-size: 1.35em;
   outline: none;
-
-  margin-bottom: 10px;
+  margin-bottom: 0.5em;
 }
 
 .author {
   font-size: 1em;
-
   outline: none;
 }
 
 .editor-container {
+  display: flex;
   flex: 1;
 
   height: calc(100% - 2em);
   min-width: 250px;
 
-  margin: 1em;
-  padding: 2em;
+  margin: 0 1em;
+  padding: 1em 2em;
 
   background-color: #ffffff;
 
@@ -85,6 +87,12 @@ body {
 
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
+}
+
+.editor {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .editor-section {
@@ -107,13 +115,14 @@ body {
 
   background-color: rgba(0, 0, 0, 0.1);
 
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 16px;
 
-  margin: 0.5em 0.75em 0em 0em;
+  margin: 0.75em 0.75em 0em 0em;
 
-  transition: box-shadow 0.1s ease;
-  transition: transform 0.1s ease;
+  transition:
+    box-shadow 0.1s ease,
+    transform 0.1s ease;
 }
 
 .theme:before {
@@ -143,6 +152,8 @@ body {
   font-size: 0.75em;
   text-align: center;
 
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-spacing: 1px;
   border-radius: 0.5em;
   color: rgba(0, 0, 0, 0.5);
 
@@ -154,11 +165,19 @@ body {
 .font:hover,
 .active {
   color: rgba(0, 0, 0, 1);
-  outline: rgba(0, 0, 0, 1);
+}
+
+.padding:active,
+.size:active,
+.font:active,
+.theme:active {
+  outline-offset: 1.5px;
 }
 
 .active {
-  background-color: rgba(0, 0, 0, 0.05);
+  outline-offset: 1.5px;
+
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 label {
@@ -172,8 +191,9 @@ label {
   font-family: monospace;
   font-size: 1.15em;
 
-  margin: 1em auto;
+  margin-top: 1em;
   padding: 15px 20px;
+  width: 100%;
 
   color: #ffffff;
   background-color: rgba(0, 0, 0, 1);
@@ -194,4 +214,46 @@ label {
 
 a:hover {
   cursor: default;
+}
+
+.spacer {
+  flex-grow: 1;
+  height: 10px;
+  flex: 1;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font:
+    11px ui-monospace,
+    SFMono-Regular,
+    SF Mono,
+    Menlo,
+    Consolas,
+    Liberation Mono,
+    monospace;
+  line-height: 10px;
+  color: #1f2329;
+  vertical-align: middle;
+  background-color: #f6f8fa;
+  border: solid 1px #e7ebee;
+  border-bottom-color: #e7ebee;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #e7ebee;
+
+  margin-left: 5px;
+}
+
+.feedback:hover,
+.feedback {
+  font-size: 0.8em;
+  cursor: pointer;
+  text-decoration: none;
+  color: #7f7f7f;
+  transition: color 0.25s ease-in;
+}
+
+.feedback:hover {
+  color: #000000;
 }
