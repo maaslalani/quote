@@ -1,8 +1,11 @@
 module Main exposing (main)
 
 import Browser
-import Html exposing (Html, div, label, text)
-import Html.Attributes exposing (class, classList, contenteditable, style)
+import Css exposing (..)
+import Css.Transitions exposing (Transition, transition)
+import Html.Styled exposing (Html, a, div, kbd, label, text, toUnstyled)
+import Html.Styled.Attributes exposing (contenteditable, css, shape)
+import Html.Styled.Events exposing (onClick)
 
 
 type alias Quote =
@@ -14,7 +17,7 @@ type alias Theme =
 
 
 type alias Size =
-    { width : Int, height : Int }
+    { width : Float, height : Float }
 
 
 type alias Model =
@@ -45,67 +48,144 @@ init =
     }
 
 
-stylesheet model =
-    { container =
-        [ style "width" "100vw"
-        , style "height" "100vh"
-        , style "display" "flex"
-        , style "align-items" "center"
-        , style "justify-content" "center"
-        ]
-    , quoteContainer =
-        [ style "background-color" model.theme.background
-        , style "box-shadow" "0 0 20px rgba(0, 0, 0, 0.1)"
-        , style "border-radius" "12px"
-        , style "border" "1px solid rgba(0, 0, 0, 0.1)"
-        , style "display" "flex"
-        , style "flex-direction" "column"
-        , style "justify-content" "center"
-        , style "font-family" model.theme.font
-        , style "height" (String.fromInt model.size.height ++ "px")
-        , style "width" (String.fromInt model.size.width ++ "px")
-        ]
-    , quote =
-        [ style "font-size" "1.35em"
-        , style "color" model.theme.foreground
-        , style "outline" "none"
-        , style "margin" "2% 20%"
-        ]
-    , author =
-        [ style "font-size" "1em"
-        , style "color" model.theme.foreground
-        , style "outline" "none"
-        , style "margin" "1% 20%"
-        ]
-    }
-
-
-editorSection name =
-    div [ class "editor-section" ]
-        [ label [] [ text name ] ]
-
-
-view : Model -> Html msg
+view : Model -> Html Msg
 view model =
     let
-        styles =
-            stylesheet model
+        theme =
+            model.theme
     in
-    div styles.container
-        [ div styles.quoteContainer
+    div [ css [] ]
+        [ div []
             [ div
-                (styles.quote ++ [ contenteditable True ])
-                [ text model.quote.text ]
-            , div
-                (styles.author ++ [ contenteditable True ])
-                [ text model.quote.author ]
+                [ css
+                    [ fontFamilies [ theme.font ]
+                    , height (px model.size.height)
+                    , width (px model.size.width)
+                    , displayFlex
+                    , flexDirection column
+                    , justifyContent center
+                    , boxShadow4 (px 0) (px 0) (px 20) (rgba 0 0 0 0.1)
+                    , margin auto
+                    , borderRadius (px 16)
+                    ]
+                ]
+                [ div
+                    [ css
+                        [ fontSize (em 1.35)
+                        , outline none
+                        , marginBottom (em 0.5)
+                        ]
+                    , contenteditable True
+                    ]
+                    [ text model.quote.text ]
+                , div
+                    [ css
+                        [ fontSize (em 1)
+                        , outline none
+                        ]
+                    , contenteditable True
+                    ]
+                    [ text model.quote.author ]
+                ]
             ]
-        , div [ class "editor-container" ]
-            [ editorSection "Theme"
-            , editorSection "Size"
-            , editorSection "Font"
+        , div []
+            [ div []
+                [ div []
+                    [ editorLabel [ text "Theme" ]
+                    , themeButton theme "#333333" "#FFFFFF"
+                    , themeButton theme "#333333" "#EDEDE9"
+                    , themeButton theme "#333333" "#D6CCC2"
+                    , themeButton theme "#333333" "#F5EBE0"
+                    , themeButton theme "#333333" "#E3D5CA"
+                    , themeButton theme "#FEFEFE" "#D5BDAF"
+                    , themeButton theme "#FEFEFE" "#EEE4E1"
+                    , themeButton theme "#333333" "#E7D8C9"
+                    , themeButton theme "#FFFFFF" "#E6BEAE"
+                    , themeButton theme "#EFEFEF" "#E6BEAE"
+                    ]
+                , div
+                    []
+                    [ editorLabel [ text "Size" ]
+                    , sizeButton 250
+                    , sizeButton 400
+                    , sizeButton 600
+                    ]
+                , div
+                    []
+                    [ editorLabel [ text "Font" ]
+                    , fontButton theme "serif"
+                    , fontButton theme "sans-serif"
+                    , fontButton theme "monospace"
+                    ]
+                , div
+                    []
+                    [ editorLabel
+                        [ text "Export"
+                        , kbd
+                            [ css
+                                [ padding2 (px 3) (px 5)
+                                , fontSize (px 11)
+                                , fontFamilies [ "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "monospace" ]
+                                , color (hex "1f2329")
+                                , backgroundColor (hex "f6f8fa")
+                                , border3 (px 1) solid (hex "e7ebee")
+                                , borderRadius (px 6)
+                                , borderBottomColor (hex "e7ebee")
+                                , boxShadow5 inset (px 0) (px -1) (px 0) (hex "e7ebee")
+                                , marginLeft (px 5)
+                                , lineHeight (px 10)
+                                , verticalAlign middle
+                                ]
+                            ]
+                            [ text "⌘ S" ]
+                        ]
+                    ]
+                ]
             ]
         ]
+
+
+editorLabel : List (Html msg) -> Html msg
+editorLabel children =
+    label
+        [ css
+            [ fontSize (em 0.8)
+            , color (hex "635852")
+            , display block
+            ]
+        ]
+        children
+
+
+themeButton : Theme -> String -> String -> Html Msg
+themeButton theme fg bg =
+    a
+        [ css
+            [ color (hex fg)
+            , backgroundColor (hex bg)
+            , displayFlex
+            , justifyContent center
+            , alignItems center
+            , width (px 24)
+            , height (px 24)
+            , fontSize (em 0.75)
+            , borderRadius (px 16)
+            , border3 (px 1) solid (rgba 0 0 0 0.2)
+            , margin4 (em 0.75) (em 0.75) (px 0) (px 0)
+            ]
+        , onClick (SetTheme { theme | foreground = fg, background = bg })
+        ]
+        [ text " F " ]
+
+
+sizeButton : Float -> Html Msg
+sizeButton size =
+    a [ onClick (SetSize { width = size, height = size }) ] [ text (String.fromFloat size) ]
+
+
+fontButton : Theme -> String -> Html Msg
+fontButton theme font =
+    a [ onClick (SetTheme { theme | font = font }) ] [ text font ]
 
 
 update : Msg -> Model -> Model
@@ -125,5 +205,5 @@ main =
     Browser.sandbox
         { init = init
         , update = update
-        , view = view
+        , view = view >> toUnstyled
         }
