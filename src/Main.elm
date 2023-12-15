@@ -2,9 +2,8 @@ module Main exposing (main)
 
 import Browser
 import Css exposing (..)
-import Css.Transitions exposing (Transition, transition)
 import Html.Styled exposing (Html, a, div, kbd, label, text, toUnstyled)
-import Html.Styled.Attributes exposing (contenteditable, css, shape)
+import Html.Styled.Attributes exposing (contenteditable, css)
 import Html.Styled.Events exposing (onClick)
 
 
@@ -57,6 +56,7 @@ view model =
     div [ css [] ]
         [ div []
             [ div
+                -- Quote Container
                 [ css
                     [ fontFamilies [ theme.font ]
                     , height (px model.size.height)
@@ -69,18 +69,24 @@ view model =
                     , borderRadius (px 16)
                     ]
                 ]
-                [ div
+                [ -- Quote Text
+                  div
                     [ css
                         [ fontSize (em 1.35)
                         , outline none
+                        , width (pct 60)
+                        , margin2 (px 0) auto
                         , marginBottom (em 0.5)
                         ]
                     , contenteditable True
                     ]
                     [ text model.quote.text ]
-                , div
+                , -- Quote Author
+                  div
                     [ css
                         [ fontSize (em 1)
+                        , width (pct 60)
+                        , margin2 (px 0) auto
                         , outline none
                         ]
                     , contenteditable True
@@ -89,56 +95,59 @@ view model =
                 ]
             ]
         , div []
-            [ div []
+            [ div [ css [ displayFlex ] ]
                 [ div []
                     [ editorLabel [ text "Theme" ]
-                    , themeButton theme "#333333" "#FFFFFF"
-                    , themeButton theme "#333333" "#EDEDE9"
-                    , themeButton theme "#333333" "#D6CCC2"
-                    , themeButton theme "#333333" "#F5EBE0"
-                    , themeButton theme "#333333" "#E3D5CA"
-                    , themeButton theme "#FEFEFE" "#D5BDAF"
-                    , themeButton theme "#FEFEFE" "#EEE4E1"
-                    , themeButton theme "#333333" "#E7D8C9"
-                    , themeButton theme "#FFFFFF" "#E6BEAE"
-                    , themeButton theme "#EFEFEF" "#E6BEAE"
-                    ]
-                , div
-                    []
-                    [ editorLabel [ text "Size" ]
-                    , sizeButton 250
-                    , sizeButton 400
-                    , sizeButton 600
-                    ]
-                , div
-                    []
-                    [ editorLabel [ text "Font" ]
-                    , fontButton theme "serif"
-                    , fontButton theme "sans-serif"
-                    , fontButton theme "monospace"
-                    ]
-                , div
-                    []
-                    [ editorLabel
-                        [ text "Export"
-                        , kbd
-                            [ css
-                                [ padding2 (px 3) (px 5)
-                                , fontSize (px 11)
-                                , fontFamilies [ "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "monospace" ]
-                                , color (hex "1f2329")
-                                , backgroundColor (hex "f6f8fa")
-                                , border3 (px 1) solid (hex "e7ebee")
-                                , borderRadius (px 6)
-                                , borderBottomColor (hex "e7ebee")
-                                , boxShadow5 inset (px 0) (px -1) (px 0) (hex "e7ebee")
-                                , marginLeft (px 5)
-                                , lineHeight (px 10)
-                                , verticalAlign middle
-                                ]
-                            ]
-                            [ text "⌘ S" ]
+                    , div
+                        [ css [ displayFlex, width (em 15), flexWrap wrap ] ]
+                        [ themeButton theme "#333333" "#FFFFFF"
+                        , themeButton theme "#333333" "#EDEDE9"
+                        , themeButton theme "#333333" "#D6CCC2"
+                        , themeButton theme "#333333" "#F5EBE0"
+                        , themeButton theme "#333333" "#E3D5CA"
+                        , themeButton theme "#FEFEFE" "#D5BDAF"
+                        , themeButton theme "#FEFEFE" "#EEE4E1"
+                        , themeButton theme "#333333" "#E7D8C9"
+                        , themeButton theme "#FFFFFF" "#E6BEAE"
+                        , themeButton theme "#EFEFEF" "#E6BEAE"
                         ]
+                    ]
+                ]
+            , div
+                []
+                [ editorLabel [ text "Size" ]
+                , sizeButton 250
+                , sizeButton 400
+                , sizeButton 600
+                ]
+            , div
+                []
+                [ editorLabel [ text "Font" ]
+                , fontButton theme "serif"
+                , fontButton theme "sans-serif"
+                , fontButton theme "monospace"
+                ]
+            , div
+                []
+                [ editorLabel
+                    [ text "Export"
+                    , kbd
+                        [ css
+                            [ padding2 (px 3) (px 5)
+                            , fontSize (px 11)
+                            , fontFamilies [ "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "monospace" ]
+                            , color (hex "1f2329")
+                            , backgroundColor (hex "f6f8fa")
+                            , border3 (px 1) solid (hex "e7ebee")
+                            , borderRadius (px 6)
+                            , borderBottomColor (hex "e7ebee")
+                            , boxShadow5 inset (px 0) (px -1) (px 0) (hex "e7ebee")
+                            , marginLeft (px 5)
+                            , lineHeight (px 10)
+                            , verticalAlign middle
+                            ]
+                        ]
+                        [ text "⌘ S" ]
                     ]
                 ]
             ]
