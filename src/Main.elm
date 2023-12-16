@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Css exposing (..)
+import Css.Transitions as Transitions exposing (transition)
 import Html.Styled exposing (Html, a, div, kbd, label, text, toUnstyled)
 import Html.Styled.Attributes exposing (contenteditable, css)
 import Html.Styled.Events exposing (onClick)
@@ -29,6 +30,58 @@ type Msg
     | SetSize Size
 
 
+stylesheet model =
+    { quoteContainer =
+        css
+            [ fontFamilies [ model.theme.font ]
+            , height (px model.size.height)
+            , width (px model.size.width)
+            , backgroundColor (hex model.theme.background)
+            , color (hex model.theme.foreground)
+            , displayFlex
+            , flexDirection column
+            , justifyContent center
+            , boxShadow4 (px 0) (px 0) (px 20) (rgba 0 0 0 0.1)
+            , margin auto
+            , borderRadius (px 16)
+            , transition
+                [ Transitions.background 250
+                , Transitions.color 250
+                ]
+            ]
+    , quoteText =
+        css
+            [ fontSize (em 1.35)
+            , outline none
+            , width (pct 60)
+            , margin2 (px 0) auto
+            , marginBottom (em 0.5)
+            ]
+    , quoteAuthor =
+        css
+            [ fontSize (em 1)
+            , width (pct 60)
+            , margin2 (px 0) auto
+            , outline none
+            ]
+    , kbd =
+        css
+            [ padding2 (px 3) (px 5)
+            , fontSize (px 11)
+            , fontFamilies [ "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "monospace" ]
+            , color (hex "1f2329")
+            , backgroundColor (hex "f6f8fa")
+            , border3 (px 1) solid (hex "e7ebee")
+            , borderRadius (px 6)
+            , borderBottomColor (hex "e7ebee")
+            , boxShadow5 inset (px 0) (px -1) (px 0) (hex "e7ebee")
+            , marginLeft (px 5)
+            , lineHeight (px 10)
+            , verticalAlign middle
+            ]
+    }
+
+
 init : Model
 init =
     { quote =
@@ -52,50 +105,27 @@ view model =
     let
         theme =
             model.theme
+
+        styles =
+            stylesheet model
     in
     div [ css [] ]
         [ div []
             [ div
                 -- Quote Container
-                [ css
-                    [ fontFamilies [ theme.font ]
-                    , height (px model.size.height)
-                    , width (px model.size.width)
-                    , displayFlex
-                    , flexDirection column
-                    , justifyContent center
-                    , boxShadow4 (px 0) (px 0) (px 20) (rgba 0 0 0 0.1)
-                    , margin auto
-                    , borderRadius (px 16)
-                    ]
-                ]
+                [ styles.quoteContainer ]
                 [ -- Quote Text
                   div
-                    [ css
-                        [ fontSize (em 1.35)
-                        , outline none
-                        , width (pct 60)
-                        , margin2 (px 0) auto
-                        , marginBottom (em 0.5)
-                        ]
-                    , contenteditable True
-                    ]
+                    [ styles.quoteText, contenteditable True ]
                     [ text model.quote.text ]
                 , -- Quote Author
                   div
-                    [ css
-                        [ fontSize (em 1)
-                        , width (pct 60)
-                        , margin2 (px 0) auto
-                        , outline none
-                        ]
-                    , contenteditable True
-                    ]
+                    [ styles.quoteAuthor, contenteditable True ]
                     [ text model.quote.author ]
                 ]
             ]
-        , div []
-            [ div [ css [ displayFlex ] ]
+        , div [ css [ displayFlex ] ]
+            [ div []
                 [ div []
                     [ editorLabel [ text "Theme" ]
                     , div
@@ -131,22 +161,7 @@ view model =
                 []
                 [ editorLabel
                     [ text "Export"
-                    , kbd
-                        [ css
-                            [ padding2 (px 3) (px 5)
-                            , fontSize (px 11)
-                            , fontFamilies [ "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "monospace" ]
-                            , color (hex "1f2329")
-                            , backgroundColor (hex "f6f8fa")
-                            , border3 (px 1) solid (hex "e7ebee")
-                            , borderRadius (px 6)
-                            , borderBottomColor (hex "e7ebee")
-                            , boxShadow5 inset (px 0) (px -1) (px 0) (hex "e7ebee")
-                            , marginLeft (px 5)
-                            , lineHeight (px 10)
-                            , verticalAlign middle
-                            ]
-                        ]
+                    , kbd [ styles.kbd ]
                         [ text "⌘ S" ]
                     ]
                 ]
@@ -182,7 +197,7 @@ themeButton theme fg bg =
             , border3 (px 1) solid (rgba 0 0 0 0.2)
             , margin4 (em 0.75) (em 0.75) (px 0) (px 0)
             ]
-        , onClick (SetTheme { theme | foreground = fg, background = bg })
+        , onClick (SetTheme { foreground = fg, background = bg, font = theme.font })
         ]
         [ text " F " ]
 
