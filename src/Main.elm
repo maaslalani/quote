@@ -243,10 +243,10 @@ view model =
                                 ]
                             ]
                             [ themeButton model "#333333" "#FFFFFF"
-                            , themeButton model "#333333" "#EDEDE9"
-                            , themeButton model "#333333" "#D6CCC2"
-                            , themeButton model "#333333" "#F5EBE0"
-                            , themeButton model "#333333" "#E3D5CA"
+                            , themeButton model "#463f3a" "#d6ccc2"
+                            , themeButton model "#5e503f" "#f5ebe0"
+                            , themeButton model "#8a817c" "#e3d5ca"
+                            , themeButton model "#ffffff" "#d5bdaf"
                             ]
                         ]
                     ]
