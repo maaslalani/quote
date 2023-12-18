@@ -391,52 +391,55 @@ alignButton model align =
 
         isActive =
             model.align == align
+
+        style =
+            if isActive then
+                styles.activeButton
+
+            else
+                styles.button
     in
     a
-        [ styles.button
-        , if isActive then
-            styles.activeButton
+        [ styles.button, style, onClick (SetAlign align) ]
+        [ alignIcon align ]
 
-          else
-            styles.button
-        , onClick
-            (SetAlign align)
+
+alignIcon : Align -> Html msg
+alignIcon align =
+    let
+        width =
+            Attributes.width
+
+        height =
+            Attributes.height
+    in
+    svg
+        [ width "14", height "14" ]
+        [ rect [ y "2", width "14", height "1" ] []
+        , rect
+            [ y "6"
+            , height "1"
+            , width (ternary (align == Center) "10" "14")
+            , x (ternary (align == Center) "2" "0")
+            ]
+            []
+        , rect
+            [ y "10"
+            , height "1"
+            , x (ternary (align == Right) "4" "0")
+            , width (ternary (align == Center) "14" "10")
+            ]
+            []
         ]
-        [ let
-            width =
-                Attributes.width
 
-            height =
-                Attributes.height
 
-            fill =
-                Attributes.fill
-          in
-          case align of
-            Left ->
-                svg
-                    [ width "14", height "18" ]
-                    [ rect [ x "1", y "4", width "12", height "1", fill "000" ] []
-                    , rect [ x "1", y "8", width "12", height "1", fill "000" ] []
-                    , rect [ x "1", y "12", width "9", height "1", fill "000" ] []
-                    ]
+ternary : Bool -> a -> a -> a
+ternary condition consequent alternate =
+    if condition then
+        consequent
 
-            Center ->
-                svg
-                    [ width "14", height "18" ]
-                    [ rect [ x "1", y "4", width "12", height "1", fill "000" ] []
-                    , rect [ x "2", y "8", width "9", height "1", fill "000" ] []
-                    , rect [ x "1", y "12", width "12", height "1", fill "000" ] []
-                    ]
-
-            Right ->
-                svg
-                    [ width "14", height "18" ]
-                    [ rect [ x "1", y "4", width "12", height "1", fill "000" ] []
-                    , rect [ x "1", y "8", width "12", height "1", fill "000" ] []
-                    , rect [ x "4", y "12", width "9", height "1", fill "000" ] []
-                    ]
-        ]
+    else
+        alternate
 
 
 fontButton : Model -> String -> Html Msg
