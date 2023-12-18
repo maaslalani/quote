@@ -46,6 +46,7 @@ stylesheet model =
             , alignItems center
             , flexDirection column
             , height (vh 100)
+            , fontFamily sansSerif
             ]
     , quoteContainer =
         css
@@ -120,21 +121,24 @@ stylesheet model =
     , buttonGroup =
         css
             [ backgroundColor (hex "f4f4f5")
-            , padding2 (em 0.3) (em 0.2)
+            , padding2 (px 5) (px 2)
             , displayFlex
             , justifyContent center
             , alignItems center
-            , borderRadius (em 0.5)
+            , borderRadius (px 7)
             ]
     , button =
         css
             [ backgroundColor (hex "f4f4f5")
             , color (hex "83838b")
-            , padding2 (em 0.4) (em 0.65)
-            , borderRadius (em 0.5)
-            , margin2 (em 0) (em 0.25)
+            , padding2 (px 5) (px 10)
+            , borderRadius (px 5)
+            , margin2 (em 0) (px 5)
             , whiteSpace noWrap
-            , fontSize (em 0.8)
+            , fontSize (px 12)
+            , height (px 18)
+            , displayFlex
+            , alignItems center
             , cursor default
             , transition
                 [ Transitions.backgroundColor 250
@@ -154,7 +158,10 @@ stylesheet model =
             [ backgroundColor (hex "18181b")
             , color (hex "fafafa")
             , padding2 (em 0.6) (em 2)
-            , borderRadius (em 0.5)
+            , height (em 1.4)
+            , borderRadius (px 6)
+            , displayFlex
+            , alignItems center
             , fontSize (em 0.9)
             , letterSpacing (px 0.25)
             , boxShadow5 (px 0) (px 1) (px 3) (px 0) (rgba 0 0 0 0.1)
@@ -408,26 +415,26 @@ alignButton model align =
           case align of
             Left ->
                 svg
-                    [ width "14", height "14" ]
-                    [ rect [ x "0", y "4", width "14", height "1", fill "000" ] []
-                    , rect [ x "0", y "8", width "14", height "1", fill "000" ] []
-                    , rect [ x "0", y "12", width "11", height "1", fill "000" ] []
+                    [ width "14", height "18" ]
+                    [ rect [ x "1", y "4", width "12", height "1", fill "000" ] []
+                    , rect [ x "1", y "8", width "12", height "1", fill "000" ] []
+                    , rect [ x "1", y "12", width "9", height "1", fill "000" ] []
                     ]
 
             Center ->
                 svg
-                    [ width "14", height "14" ]
-                    [ rect [ x "0", y "4", width "14", height "1", fill "000" ] []
-                    , rect [ x "1.5", y "8", width "11", height "1", fill "000" ] []
-                    , rect [ x "0", y "12", width "14", height "1", fill "000" ] []
+                    [ width "14", height "18" ]
+                    [ rect [ x "1", y "4", width "12", height "1", fill "000" ] []
+                    , rect [ x "2", y "8", width "9", height "1", fill "000" ] []
+                    , rect [ x "1", y "12", width "12", height "1", fill "000" ] []
                     ]
 
             Right ->
                 svg
-                    [ width "14", height "14" ]
-                    [ rect [ x "0", y "4", width "14", height "1", fill "000" ] []
-                    , rect [ x "0", y "8", width "14", height "1", fill "000" ] []
-                    , rect [ x "3", y "12", width "11", height "1", fill "000" ] []
+                    [ width "14", height "18" ]
+                    [ rect [ x "1", y "4", width "12", height "1", fill "000" ] []
+                    , rect [ x "1", y "8", width "12", height "1", fill "000" ] []
+                    , rect [ x "4", y "12", width "9", height "1", fill "000" ] []
                     ]
         ]
 
@@ -446,6 +453,7 @@ fontButton model font =
     in
     a
         [ styles.button
+        , css [ fontFamilies [ font ] ]
         , if isActive then
             styles.activeButton
 
