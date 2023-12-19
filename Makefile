@@ -1,5 +1,9 @@
 live:
-	elm-live src/Main.elm -- --output main.js
+	mkdir -p dist
+	cp src/index.html dist/index.html
+	elm-live src/Main.elm --dir dist -- --output dist/main.js
 
 build:
-	elm make src/Main.elm --output main.js --optimize
+	mkdir -p dist
+	cp src/index.html dist/index.html
+	elm make src/Main.elm --output dist/main.js --optimize
