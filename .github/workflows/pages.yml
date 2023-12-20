@@ -28,7 +28,9 @@ jobs:
         uses: jorelali/setup-elm@v5
         with:
           elm-version: 0.19.1
-      - run: elm make src/Main.elm
+      - run: |
+          elm make src/Main.elm --output main.js
+          cp src/index.html index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
