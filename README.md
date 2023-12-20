@@ -32,7 +32,7 @@ Share these quotes with your family, friends, or pin them to your [Pinterest](ht
 
 Or, put them on your home screen.
 
-<p align="center">
+<p align="left">
   <img width="400" alt="Screenshot of iPhone with a quote as a widget" src="https://github.com/maaslalani/quote/assets/42545625/2ecdd0dc-f2fd-48c1-be2e-31da153662d8" />
 </p>
 
