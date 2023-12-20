@@ -1,8 +1,9 @@
-port module Main exposing (main)
+port module Main exposing (desktop, main)
 
 import Browser
 import Browser.Events exposing (onKeyDown, onKeyPress, onKeyUp)
 import Css exposing (..)
+import Css.Media exposing (withMediaQuery)
 import Css.Transitions as Transitions exposing (transition)
 import Html.Styled exposing (Attribute, Html, a, div, kbd, label, text, toUnstyled)
 import Html.Styled.Attributes exposing (contenteditable, css, id)
@@ -83,6 +84,16 @@ themes =
 -- Styles
 
 
+desktop : List Style -> Style
+desktop =
+    withMediaQuery [ "screen and (min-width: 801px)" ]
+
+
+mobile : List Style -> Style
+mobile =
+    withMediaQuery [ "screen and (max-width: 800px)" ]
+
+
 stylesheet :
     Model
     ->
@@ -112,7 +123,8 @@ stylesheet model =
             ]
     , quoteContainer =
         css
-            [ flex (int 3)
+            [ desktop [ flex (int 3) ]
+            , flex (int 1)
             , displayFlex
             , alignItems center
             , textAlign
@@ -170,13 +182,15 @@ stylesheet model =
     , editorContainer =
         css
             [ flex (int 1)
+            , marginBottom (em 1)
             ]
     , editorWrapper =
         css
-            [ display inlineFlex
+            [ withMediaQuery [ "screen and (min-width: 800px)" ] [ display inlineFlex ]
             , backgroundColor (hex "fff")
             , boxShadow4 (px 0) (px 0) (px 20) (rgba 0 0 0 0.1)
-            , padding2 (em 1.5) (em 0.75)
+            , padding2 (em 1) (em 1.5)
+            , paddingBottom (em 2)
             , borderRadius (px 16)
             , border3 (px 1) solid (hex "e7ebee")
             ]
@@ -188,7 +202,7 @@ stylesheet model =
         css
             [ backgroundColor (hex "f4f4f5")
             , padding2 (px 5) (px 2)
-            , displayFlex
+            , display inlineFlex
             , justifyContent center
             , alignItems center
             , borderRadius (px 7)
@@ -224,9 +238,10 @@ stylesheet model =
             [ backgroundColor (hex "18181b")
             , color (hex "fafafa")
             , padding2 (em 0.6) (em 2)
-            , height (em 1.4)
+            , height (em 1.6)
+            , desktop [ height (em 1.4) ]
             , borderRadius (px 6)
-            , displayFlex
+            , display inlineFlex
             , alignItems center
             , fontSize (em 0.9)
             , letterSpacing (px 0.25)
@@ -431,8 +446,9 @@ editorLabel children =
         [ css
             [ fontSize (em 0.8)
             , color (hex "635852")
-            , display inlineBlock
-            , height (em 2)
+            , display block
+            , marginTop (em 1.25)
+            , marginBottom (em 1)
             ]
         ]
         children
