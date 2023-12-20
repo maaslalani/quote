@@ -1,9 +1,9 @@
 live:
 	mkdir -p dist
-	cp index.html dist/index.html
-	elm-live Main.elm --dir dist -- --output dist/main.js
+	cp src/index.html dist/index.html
+	elm-live src/Main.elm --dir dist -- --output dist/main.js
 
 build:
 	mkdir -p dist
-	cp index.html dist/index.html
-	elm make Main.elm --output dist/main.js --optimize
+	cp src/index.html dist/index.html
+	elm make src/Main.elm --output dist/main.js --optimize
