@@ -8,6 +8,7 @@ import Html.Styled exposing (Attribute, Html, a, div, kbd, label, text, toUnstyl
 import Html.Styled.Attributes exposing (contenteditable, css, id)
 import Html.Styled.Events exposing (onClick)
 import Json.Decode as Decode
+import Quote exposing (Quote, randomQuote)
 import Svg.Styled exposing (rect, svg)
 import Svg.Styled.Attributes as Attributes exposing (x, y)
 import VirtualDom exposing (Node)
@@ -22,12 +23,6 @@ port exportImage : () -> Cmd msg
 
 
 -- Types
-
-
-type alias Quote =
-    { text : String
-    , author : String
-    }
 
 
 type alias Theme =
@@ -63,8 +58,8 @@ type alias Model =
 
 
 type Msg
-    = SetQuote Quote
-    | SetTheme Theme
+    = SetTheme Theme
+    | SetQuote Quote
     | SetFont Font
     | SetAlign Align
     | SetSize Size
@@ -270,12 +265,9 @@ stylesheet model =
 -- Model
 
 
-init : () -> ( Model, Cmd msg )
+init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { quote =
-            { text = "Be yourself; everyone else is already taken."
-            , author = "— Oscar Wilde"
-            }
+    ( { quote = { text = "", author = "" }
       , theme =
             { foreground = "#333333"
             , background = "#FFFFFF"
@@ -288,7 +280,7 @@ init _ =
       , align = Left
       , meta = False
       }
-    , Cmd.none
+    , randomQuote SetQuote
     )
 
 
