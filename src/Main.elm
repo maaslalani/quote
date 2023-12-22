@@ -9,11 +9,13 @@ import Html.Styled exposing (Attribute, Html, a, div, kbd, label, text, toUnstyl
 import Html.Styled.Attributes exposing (contenteditable, css, id)
 import Html.Styled.Events exposing (onClick)
 import Json.Decode as Decode
-import Quote exposing (Quote, randomQuote)
+import Quote exposing (Quote, randomQuote, defaultQuote)
 import Svg.Styled exposing (rect, svg)
 import Svg.Styled.Attributes as Attributes exposing (x, y)
 import VirtualDom exposing (Node)
-
+import Svg.Styled exposing (path)
+import Svg.Styled.Attributes exposing (d)
+svgViewBox = Svg.Styled.Attributes.viewBox
 
 
 -- Ports
@@ -68,6 +70,7 @@ type Msg
     | KeyDown String
     | KeyPress String
     | ExportImage
+    | RandomQuote
 
 
 themes : List Theme
@@ -110,6 +113,7 @@ stylesheet :
         , button : Attribute msg
         , activeButton : Attribute msg
         , exportButton : Attribute msg
+        , iconButton: Attribute msg
         , kbd : Attribute msg
         }
 stylesheet model =
@@ -253,6 +257,27 @@ stylesheet model =
                 [ backgroundColor (hex "2e2e34")
                 ]
             ]
+    , iconButton = 
+        css
+            [ backgroundColor (hex "f4f4f5")
+            , color (hex "83838b")
+            , padding (em 1)
+            , marginLeft (em 0.3)
+            , borderRadius (px 5)
+            , fontSize (px 12)
+            , height (px 18)
+            , width (px 18)
+            , display inlineFlex
+            , alignItems center
+            , justifyContent center
+            , cursor pointer
+            , transition
+                [ Transitions.backgroundColor 250
+                ]
+            , hover
+                [ color (hex "1e1e20")
+                ]
+            ]
     , kbd =
         css
             [ padding2 (px 2) (px 5)
@@ -319,6 +344,9 @@ update msg model =
 
         ExportImage ->
             ( model, exportImage () )
+        
+        RandomQuote ->
+            ( model, randomQuote (SetQuote) )
 
         KeyUp key ->
             case key of
@@ -426,6 +454,12 @@ view model =
                                 ]
                             , a [ styles.exportButton, onClick ExportImage ]
                                 [ text "Export"
+                                ]
+                            , a [ styles.iconButton, onClick RandomQuote ]
+                                [ resetIcon
+                                ]
+                            , a [ styles.iconButton, onClick (SetQuote defaultQuote) ]
+                                [ reloadIcon
                                 ]
                             ]
                         ]
@@ -573,6 +607,33 @@ alignIcon align =
             ]
             []
         ]
+
+
+resetIcon : Html Msg
+resetIcon = 
+    let
+        width =
+            Attributes.width
+
+        height =
+            Attributes.height
+    in
+    svg
+    [ width "16", height "14", svgViewBox "0 0 448 512" ]
+    [ path [ d "M64 48C37.5 48 16 69.5 16 96V416c0 26.5 21.5 48 48 48H384c26.5 0 48-21.5 48-48V96c0-26.5-21.5-48-48-48H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm144 64a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm-48 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM224 272a16 16 0 1 0 0-32 16 16 0 1 0 0 32zm0-48a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM336 352a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm-48 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"] [] ]
+
+reloadIcon : Html Msg
+reloadIcon = 
+    let
+        width =
+            Attributes.width
+
+        height =
+            Attributes.height
+    in
+    svg
+    [ width "16", height "14", svgViewBox "0 0 448 512" ]
+    [ path [ d "M386.3 160H336c-17.7 0-32 14.3-32 32s14.3 32 32 32H464c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v51.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0s-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3s163.8-62.5 226.3 0L386.3 160z"] [] ]
 
 
 ternary : Bool -> a -> a -> a
